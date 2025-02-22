@@ -1,6 +1,7 @@
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import Image from 'next/image';
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 import type { Character } from '@/types/api';
 
 interface CharacterDetailProps {
@@ -9,7 +10,7 @@ interface CharacterDetailProps {
 
 export function CharacterDetail({ character }: CharacterDetailProps) {
   return (
-    <div className="max-w-2xl mx-auto">
+    <div className="mx-auto max-w-2xl">
       <div className="mb-6">
         <Link href="/">
           <Button variant="outline">← Back to Characters</Button>
@@ -18,24 +19,27 @@ export function CharacterDetail({ character }: CharacterDetailProps) {
 
       <Card>
         <CardContent className="p-6">
-          <div className="flex flex-col md:flex-row gap-6">
-            <img
+          <div className="flex flex-col gap-6 md:flex-row">
+            <Image
               src={character.image}
               alt={character.name}
-              className="w-full md:w-64 h-64 rounded-lg object-cover"
+              width={256}
+              height={256}
+              priority
+              className="h-64 w-full rounded-lg object-cover md:w-64"
             />
             <div>
-              <h1 className="text-3xl font-bold mb-4">{character.name}</h1>
+              <h1 className="mb-4 text-3xl font-bold">{character.name}</h1>
               <div className="space-y-2">
                 <p>
                   <strong>Status:</strong>
                   <span
-                    className={`ml-2 px-2 py-1 rounded-full text-sm ${
+                    className={`ml-2 rounded-full px-2 py-1 text-sm ${
                       character.status === 'Alive'
                         ? 'bg-green-100 text-green-800'
                         : character.status === 'Dead'
-                        ? 'bg-red-100 text-red-800'
-                        : 'bg-gray-100 text-gray-800'
+                          ? 'bg-red-100 text-red-800'
+                          : 'bg-gray-100 text-gray-800'
                     }`}
                   >
                     {character.status}
