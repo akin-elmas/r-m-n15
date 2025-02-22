@@ -11,11 +11,13 @@ interface CharacterPageProps {
 export default async function CharacterPage({
   params,
 }: CharacterPageProps): Promise<JSX.Element> {
-  if (!params.id) {
+  const { id } = await params;
+
+  if (!id) {
     throw new Error('Character ID is required');
   }
 
-  const characterId = parseInt(params.id);
+  const characterId = parseInt(id);
   if (isNaN(characterId)) {
     throw new Error('Invalid character ID');
   }
